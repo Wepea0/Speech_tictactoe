@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
-from TextToSpeech_Test1 import *
+from text_to_speech import *
 
 data_dir = "Speech_tictactoe\class_responses.csv"
 ClassData = pd.read_csv(data_dir)
@@ -12,7 +12,9 @@ ClassDataNums = ClassDataNums.drop(["Name"], axis=1)
 neigh = NearestNeighbors(n_neighbors=1)
 neigh.fit(ClassDataNums)
 
-SpeakText("Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend.")
+SpeakText(
+    "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend."
+)
 SpeakText("On a scale of 1-10, how interested are you in sports?")
 sports_interest_value = int(getMove())
 
@@ -39,4 +41,14 @@ person_index = neigh.kneighbors(
         ]
     ]
 )[1][0][0]
-print(student_names[person_index])
+SpeakText(
+    "Thank you for your input. Based on our magical critically acclaimed match making algorithm, the perfect fit for you from this class is "
+    + student_names[person_index]
+    + ". Consider approaching them and starting a hopefully great friendship",
+)
+
+print(
+    "Thank you for your input. Based on our magical critically acclaimed match making algorithm, the perfect fit for you from this class is "
+    + student_names[person_index]
+    + ". Consider approaching them and starting a hopefully great friendship"
+)
