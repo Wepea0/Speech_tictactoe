@@ -12,24 +12,58 @@ ClassDataNums = ClassDataNums.drop(["Name"], axis=1)
 
 neigh = NearestNeighbors(n_neighbors=1)
 neigh.fit(ClassDataNums)
+valid_answers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+
+def validateAnswer(answer):
+    if answer in valid_answers:
+        return True
+    else:
+        return False
+
 
 SpeakText(
-    "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend. Only speak when you hear the command Speak Now!"
+    "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend. Only speak when you hear the command Speak Now. Thank you"
 )
 SpeakText("On a scale of 1-10, how interested are you in sports?")
-sports_interest_value = int(getMove())
+sports_interest_value = getMove()
+while not validateAnswer(sports_interest_value):
+    SpeakText("Please enter a valid number")
+    sports_interest_value = getMove()
+
+sports_interest_value = int(sports_interest_value)
 
 SpeakText("On a scale of 1-10, how interested are you in anime and manga?")
-anime_interest_value = int(getMove())
+anime_interest_value = getMove()
+while not validateAnswer(anime_interest_value):
+    SpeakText("Please enter a valid number")
+    anime_interest_value = getMove()
+
+anime_interest_value = int(anime_interest_value)
 
 SpeakText("On a scale of 1-10, how much do you use Twitter?")
-twitter_interest_value = int(getMove())
+twitter_interest_value = getMove()
+while not validateAnswer(twitter_interest_value):
+    SpeakText("Please enter a valid number")
+    twitter_interest_value = getMove()
 
-SpeakText("On a scale of 1-10, how much do you enjoy go out?")
-going_out_interest_value = int(getMove())
+twitter_interest_value = int(twitter_interest_value)
+
+SpeakText("On a scale of 1-10, how much do you enjoy going out?")
+going_out_interest_value = getMove()
+while not validateAnswer(going_out_interest_value):
+    SpeakText("Please enter a valid number")
+    going_out_interest_value = getMove()
+
+going_out_interest_value = int(going_out_interest_value)
 
 SpeakText("On a scale of 1-10, how much do you like dogs?")
-dogs_interest_value = int(getMove())
+dogs_interest_value = getMove()
+while not validateAnswer(dogs_interest_value):
+    SpeakText("Please enter a valid number")
+    dogs_interest_value = getMove()
+
+dogs_interest_value = int(dogs_interest_value)
 
 person_index = neigh.kneighbors(
     [

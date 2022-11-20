@@ -295,25 +295,14 @@ def play_game():
                 "Incorrect choice! What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test "
             )
             difficulty = getMove()
-        SpeakText("Enter 1 to have the first turn and 2 to have the second turn\n>>> ")
+        player = "O"
 
-        user_turn = int(getMove())
-        while user_turn != 1 and user_turn != 2:
-
-            SpeakText(
-                "Incorrect input. Enter 1 to have the first turn and 2 to have the second turn"
-            )
-            user_turn = int(getMove())
-        player = "O" if user_turn == 1 else "X"
-
-        SpeakText("Game is about to start now...")
+        SpeakText("Game is about to start now. You have the first move")
         print_grid("Current grid:", grid)
 
         while not game.terminal_test(grid):
             if player == O:
                 print("Current player is", username)
-
-                # print("Enter the row and col to play: ")
 
                 SpeakText(
                     "Squares are labelled 1 to 9. Say the square you would like to play in next"
@@ -325,7 +314,6 @@ def play_game():
                     ans = int(ans)
                 rowCol = moves[ans]
                 row, col = int(rowCol[0]), int(rowCol[1])
-                print("You entered ", row, col)
                 if grid[row][col] == BLANK:
                     grid[row][col] = player
                     if player == X:
