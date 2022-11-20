@@ -247,7 +247,7 @@ def grid_to_str(grid):
     return "".join(grid[0]) + "".join(grid[1]) + "".join(grid[2])
 
 
-def test_move():
+def play_game():
     game = TicTacToe()
     grid = copy.deepcopy(EMPTY_GRID)
 

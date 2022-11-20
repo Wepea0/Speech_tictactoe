@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 from text_to_speech import *
+from tictactoe import *
 
 data_dir = "Speech_tictactoe\class_responses.csv"
 ClassData = pd.read_csv(data_dir)
@@ -24,7 +25,7 @@ anime_interest_value = int(getMove())
 SpeakText("On a scale of 1-10, how much do you use Twitter?")
 twitter_interest_value = int(getMove())
 
-SpeakText("On a scale of 1-10, how much do you go out?")
+SpeakText("On a scale of 1-10, how much do you enjoy go out?")
 going_out_interest_value = int(getMove())
 
 SpeakText("On a scale of 1-10, how much do you like dogs?")
@@ -41,6 +42,12 @@ person_index = neigh.kneighbors(
         ]
     ]
 )[1][0][0]
+
+SpeakText(
+    "While our matchmaking elves work on finding the right person for you, let's play a game of Tic Tac Toe."
+)
+play_game()
+SpeakText("Thank you for playing")
 SpeakText(
     "Thank you for your input. Based on our magical critically acclaimed match making algorithm, the perfect fit for you from this class is "
     + student_names[person_index]
