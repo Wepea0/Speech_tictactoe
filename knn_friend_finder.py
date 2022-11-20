@@ -14,7 +14,7 @@ neigh = NearestNeighbors(n_neighbors=1)
 neigh.fit(ClassDataNums)
 
 SpeakText(
-    "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend."
+    "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend. Only speak when you hear the command Speak Now!"
 )
 SpeakText("On a scale of 1-10, how interested are you in sports?")
 sports_interest_value = int(getMove())
