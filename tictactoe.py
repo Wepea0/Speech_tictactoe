@@ -239,17 +239,15 @@ def test_move():
 
     moves = {
         1: [0, 0],
-        2: [0, 1], 
+        2: [0, 1],
         3: [0, 2],
         4: [1, 0],
         5: [1, 1],
         6: [1, 2],
-        7: [2, 0], 
+        7: [2, 0],
         8: [2, 1],
-        9: [2, 2]
+        9: [2, 2],
     }
-    
-    
 
     win_statements = [
         "Congrats! Good win!",
@@ -266,30 +264,29 @@ def test_move():
         "Come back stronger next time.",
     ]
     print("Heree")
-    SpeakText(
-        "Greetings and welcome to Tic Tac Toe Deluxe. What is your name?\n>>> "
-    )
+    SpeakText("Greetings and welcome to Tic Tac Toe Deluxe. What is your name?\n>>> ")
     username = getMove()
     welcomeMessage = "Nice to meet you " + username
     SpeakText(welcomeMessage)
-    SpeakText("What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test")
+    SpeakText(
+        "What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test"
+    )
     difficulty = getMove()
 
-
-    while (
-        difficulty != "easy"
-        and difficulty != "normal"
-        
-    ):
-        SpeakText("Incorrect choice! What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test ")
+    while difficulty != "easy" and difficulty != "normal":
+        SpeakText(
+            "Incorrect choice! What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test "
+        )
         difficulty = getMove()
     SpeakText("Enter 1 to have the first turn and 2 to have the second turn\n>>> ")
-    
+
     user_turn = int(getMove())
     while user_turn != 1 and user_turn != 2:
-        
-            SpeakText("Incorrect input. Enter 1 to have the first turn and 2 to have the second turn")
-            user_turn = int(getMove())
+
+        SpeakText(
+            "Incorrect input. Enter 1 to have the first turn and 2 to have the second turn"
+        )
+        user_turn = int(getMove())
     player = "O" if user_turn == 1 else "X"
 
     SpeakText("Game is about to start now...")
@@ -301,11 +298,13 @@ def test_move():
 
             # print("Enter the row and col to play: ")
 
-            SpeakText("Squares are labelled 1 to 9. Say the square you would like to play in next")
+            SpeakText(
+                "Squares are labelled 1 to 9. Say the square you would like to play in next"
+            )
             ans = getMove()
-            if(ans == "eat"):
+            if ans == "eat":
                 ans = 8
-            elif(ans.isdigit()):
+            elif ans.isdigit():
                 ans = int(ans)
             rowCol = moves[ans]
             row, col = int(rowCol[0]), int(rowCol[1])
@@ -332,10 +331,6 @@ def test_move():
             #         player = X
             #     print_grid("Current grid:", grid)
 
-
-                
-
-                
         else:
             print("Current player is", player, "(Computer)")
 
@@ -349,25 +344,24 @@ def test_move():
             else:
                 row, col = minimax_decision(game, grid)
 
-
-            #acceptedMove  = findMoveSquare(row, col, moves)
+            # acceptedMove  = findMoveSquare(row, col, moves)
 
             SpeakText(f"Computer played in ({findMoveSquare(row, col, moves)})")
             if grid[row][col] == BLANK:
                 grid[row][col] = player
                 if player == X:
                     player = O
-                else: 
+                else:
                     player = X
                 print_grid("Current grid:", grid)
 
     winner = game.winner(grid)
 
     if winner == X:
-        statement = (random.choice(lose_statements))
+        statement = random.choice(lose_statements)
         SpeakText(statement)
     elif winner == O:
-        statement = (random.choice(win_statements))
+        statement = random.choice(win_statements)
         SpeakText(statement)
     else:
         SpeakText("It was a draw -_-")
@@ -406,7 +400,7 @@ def test_minimax():
         test_again = input("Another test? (Y/N)")
 
 
-#Find the number of the square that corresponds to the row, column of 
+# Find the number of the square that corresponds to the row, column of
 # the move that has just been played
 def findMoveSquare(row, col, moveDict):
     rowCol = [row, col]
