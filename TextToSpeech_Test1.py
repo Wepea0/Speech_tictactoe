@@ -44,7 +44,7 @@ def getMove():
             # adjust the energy threshold based on
             # the surrounding noise level
             r.adjust_for_ambient_noise(source2, duration=0.2)
-            print("Waiting for speech...")
+            SpeakText("Speak now")
 
             # listens for the user's input
             audio2 = r.record(source2, duration=5)
