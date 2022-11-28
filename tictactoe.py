@@ -2,6 +2,7 @@ import sys
 import copy
 import random
 from text_to_speech import *
+import emoji
 
 
 INF = sys.maxsize
@@ -275,7 +276,11 @@ def play_game():
                 rowCol = moves[ans]
                 row, col = int(rowCol[0]), int(rowCol[1])
                 if grid[row][col] == BLANK:
-                    grid[row][col] = player
+                    if player == X:
+                        grid[row][col] = emoji.emojize(":alien:", variant = "emoji_type")
+                    if player == O:
+                        grid[row][col] = emoji.emojize(":collision:",  variant = "emoji_type")
+
                     if player == X:
                         player = O
                     else:
@@ -287,7 +292,11 @@ def play_game():
                 SpeakText(f"Computer played in ({findMoveSquare(row, col, moves)})")
 
                 if grid[row][col] == BLANK:
-                    grid[row][col] = player
+                    if player == X:
+                        grid[row][col] = emoji.emojize(":alien:",  variant = "emoji_type")
+                    if player == O:
+                        grid[row][col] = emoji.emojize(":collision:",  variant = "emoji_type")
+                    # grid[row][col] = player
                     if player == X:
                         player = O
                     else:
@@ -325,4 +334,5 @@ def findMoveSquare(row, col, moveDict):
 
 
 if __name__ == "__main__":
-    play_game()
+    # play_game()
+    print(emoji.emojize(" collistion :collision:"))
