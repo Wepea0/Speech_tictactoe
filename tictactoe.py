@@ -5,55 +5,24 @@ from text_to_speech import *
 
 
 INF = sys.maxsize
-
-
-class Game:
-    def __init__(self, init_state):
-        self.init_state = init_state
-
-    def __str__(self):
-        return "Init_state=" + str(self.init_state)
-
-    # placeholder, to be overridden in derived class
-    def terminal_test(self, state):
-        return True
-
-    # placeholder, to be overriden in derived class
-    def utility(self, state):
-        return 0
-
-    # placeholder, to be overriden in derived class
-    def actions(self, state):
-        moves = []
-        return moves
-
-    # placeholder, to be overriden in derived class
-    def result(self, state, action):
-        return state
-
-
 BLANK = "_"
 X = "X"
 O = "O"
 EMPTY_GRID = [[BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK]]
 
 
-class TicTacToe(Game):
+class TicTacToe:
     def __init__(self):
-        super().__init__(copy.deepcopy(EMPTY_GRID))
+        self.init_state = copy.deepcopy(EMPTY_GRID)
         self.player = "X"
 
     def terminal_test(self, state):
-        # if there is no empty space then it's a terminal state
         if not (BLANK in state[0] or BLANK in state[1] or BLANK in state[2]):
             return True
-
-        # otherwise, if there's a winner, it's a terminal state
         winner = self.winner(state)
         return winner == X or winner == O
 
     def winner(self, state):
-        # check each row for a winning configuration
         for row in [0, 1, 2]:
             if (
                 state[row][0] != BLANK
@@ -62,7 +31,6 @@ class TicTacToe(Game):
             ):
                 return state[row][0]
 
-        # check each column for a winner configuration
         for col in [0, 1, 2]:
             if (
                 state[0][col] != BLANK
@@ -71,7 +39,6 @@ class TicTacToe(Game):
             ):
                 return state[0][col]
 
-        # check the top left to bottom right diagonal
         if (
             state[0][0] != BLANK
             and state[0][0] == state[1][1]
@@ -79,7 +46,6 @@ class TicTacToe(Game):
         ):
             return state[0][0]
 
-        # check the bottom left to top right diagonal
         if (
             state[2][0] != BLANK
             and state[2][0] == state[1][1]
@@ -204,7 +170,6 @@ def min_value(game, state, level):
     n_levels = max(n_levels, level)
     if game.terminal_test(state):
         util = game.utility(state)
-        # print_grid("Reached terminal state with utility "+str(util)+":",state)
         n_terminal_states += 1
         terminal_states.add(grid_to_str(state))
         return util
@@ -280,7 +245,7 @@ def play_game():
             "Come back stronger next time.",
         ]
         SpeakText(
-            "Greetings and welcome to Tic Tac Toe Deluxe. What is your name?\n>>> "
+            "Greetings and welcome to Tic Tac Toe Deluxe. What is your gamer name?\n>>> "
         )
         username = getMove()
         welcomeMessage = "Nice to meet you " + username

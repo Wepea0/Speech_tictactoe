@@ -1,3 +1,8 @@
+"""
+The purpose of this file is to visualize the data obtained from the class_respones.csv file. This file is used to create a graph that shows the relationship between the different variables in the data set. This file is used to create the graph that is shown in the README.md file.
+"""
+
+
 import pandas as pd
 import plotly
 import plotly.graph_objs as go

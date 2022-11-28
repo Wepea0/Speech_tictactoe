@@ -1,32 +1,47 @@
+"""
+This file contains the program for finding the best possible pair of a user based on their input.
+A tictactoe game is played between asking for user input and revealing the results of the algorithm.
+"""
+
+
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 from text_to_speech import *
 from tictactoe import *
 
+
 data_dir = "class_responses.csv"
 ClassData = pd.read_csv(data_dir)
 student_names = ClassData["Name"].values
-
 ClassDataNums = pd.read_csv(data_dir)  # this stores the data without the names
 ClassDataNums = ClassDataNums.drop(["Name"], axis=1)
 
-neigh = NearestNeighbors(n_neighbors=1)
-neigh.fit(ClassDataNums)
-valid_answers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
+valid_answers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 REPEAT_INPUT_QUESTION = "Please enter a valid number"
 
 
 def validate_answer(answer):
+    """
+    If the answer is in the list of valid answers, return True, otherwise return False
+
+    :param answer: The answer the user gave
+    :return: True or False
+    """
     if answer in valid_answers:
         return True
-    else:
-        return False
+    return False
 
 
 SpeakText(
     "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend. Only speak when you hear the command Speak Now. Thank you"
 )
+SpeakText("How many friends would you like to find?")
+num_friends = int(getMove())
+neigh = NearestNeighbors(n_neighbors=num_friends)
+neigh.fit(ClassDataNums)
+
+
 SpeakText("On a scale of 1-10, how interested are you in sports?")
 sports_interest_value = getMove()
 while not validate_answer(sports_interest_value):
@@ -66,8 +81,7 @@ while not validate_answer(dogs_interest_value):
     dogs_interest_value = getMove()
 
 dogs_interest_value = int(dogs_interest_value)
-
-person_index = neigh.kneighbors(
+friends_list = neigh.kneighbors(
     [
         [
             sports_interest_value,
@@ -77,21 +91,15 @@ person_index = neigh.kneighbors(
             dogs_interest_value,
         ]
     ]
-)[1][0][0]
+)[1][0]
 
-# SpeakText(
-#     "While our matchmaking elves work on finding the right person for you, let's play a game of Tic Tac Toe."
-# )
-# play_game()
-# SpeakText("Thank you for playing")
 SpeakText(
-    "Thank you for your input. Based on our magical critically acclaimed match making algorithm, the perfect fit for you from this class is "
-    + student_names[person_index]
-    + ". Consider approaching them and starting a hopefully great friendship",
+    "While our matchmaking elves work on finding the right person for you, let's play a game of Tic Tac Toe."
 )
-
-print(
-    "Thank you for your input. Based on our magical critically acclaimed match making algorithm, the perfect fit for you from this class is "
-    + student_names[person_index]
-    + ". Consider approaching them and starting a hopefully great friendship"
+play_game()
+SpeakText("Thank you for playing")
+SpeakText(
+    "Thank you for your input. Based on our magical critically acclaimed match making algorithm, these people fit you perfectly! "
 )
+for i in friends_list:
+    SpeakText(student_names[i])
