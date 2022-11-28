@@ -3,7 +3,7 @@ import plotly
 import plotly.graph_objs as go
 
 # Read cars data from csv
-data = pd.read_csv("Speech_tictactoe/class_responses.csv")
+data = pd.read_csv("class_responses.csv")
 
 # Set marker properties
 markersize = data["Going Out"]

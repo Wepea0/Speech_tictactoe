@@ -285,16 +285,6 @@ def play_game():
         username = getMove()
         welcomeMessage = "Nice to meet you " + username
         SpeakText(welcomeMessage)
-        SpeakText(
-            "What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test"
-        )
-        difficulty = getMove()
-
-        while difficulty != "easy" and difficulty != "normal":
-            SpeakText(
-                "Incorrect choice! What difficulty would you like. Say 'Easy' for a warmup game and 'Normal' for a real test "
-            )
-            difficulty = getMove()
         player = "O"
 
         SpeakText("Game is about to start now. You have the first move")
@@ -307,7 +297,12 @@ def play_game():
                 SpeakText(
                     "Squares are labelled 1 to 9. Say the square you would like to play in next"
                 )
-                ans = getMove()
+                try:
+                    ans = getMove()
+                except:
+                    SpeakText("Please say a number between 1 and 9")
+                    ans = getMove()
+
                 if ans == "eat":
                     ans = 8
                 elif ans.isdigit():
@@ -321,37 +316,9 @@ def play_game():
                     else:
                         player = X
                     print_grid("Current grid:", grid)
-                # else:
-                #     SpeakText("Incorrect input. Squares are labelled 1 to 9. Say the square you would like to play in next")
-                #     ans = getMove()
-                #     while(ans not in moves and grid[moves[ans][0]][moves[ans][1]] != BLANK):
-                #         SpeakText("Incorrect input. Squares are labelled 1 to 9. Say the square you would like to play in next")
-                #         ans = int(getMove())
-                #     rowCol = moves[ans]
-                #     row, col = int(rowCol[0]), int(rowCol[1])
-                #     grid[row][col] = player
-                #     if player == X:
-                #         player = O
-                #     else:
-                #         player = X
-                #     print_grid("Current grid:", grid)
-
             else:
                 print("Current player is", player, "(Computer)")
-
-                # setting a 50% chance of 'dumb' decision
-                if difficulty == "Easy".lower():
-                    prob = random.randint(1, 10)
-                    if prob > 5:
-                        row, col = random.choice(game.actions(grid))
-                    else:
-                        row, col = minimax_decision(game, grid)
-                else:
-                    row, col = minimax_decision(game, grid)
-
-                # acceptedMove  = findMoveSquare(row, col, moves)
-
-                # SpeakText(f"Computer played in ({findMoveSquare(row, col, moves)})")
+                row, col = minimax_decision(game, grid)
                 SpeakText(f"Computer played in ({findMoveSquare(row, col, moves)})")
 
                 if grid[row][col] == BLANK:
@@ -372,18 +339,9 @@ def play_game():
             SpeakText(statement)
         else:
             SpeakText("It was a draw")
-
-        SpeakText("Say 'Yes' to play again and 'No' to quit")
-        play_again = getMove()
-        if play_again.lower() == "yes":
-            SpeakText("Yess! Let's run this back")
-            test_move()
-        else:
-            SpeakText("Sad to see you go :(")
-
     except:
         SpeakText("An unexpected error seems to have occurred. Let's try this again")
-        test_move()
+        play_game()
 
 
 def findMoveSquare(row, col, moveDict):
@@ -402,4 +360,4 @@ def findMoveSquare(row, col, moveDict):
 
 
 if __name__ == "__main__":
-    test_move()
+    play_game()
