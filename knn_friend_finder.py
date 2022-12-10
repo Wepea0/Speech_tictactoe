@@ -37,11 +37,15 @@ SpeakText(
     "Welcome to the Friend Locator program, powered by KNN. Follow the prompts to find a friend. Only speak when you hear the command Speak Now. Thank you"
 )
 SpeakText("How many friends would you like to find?")
-num_friends = int(getMove())
+num_friends = getMove()
+while not validate_answer(num_friends):
+    SpeakText(REPEAT_INPUT_QUESTION)
+    num_friends = getMove()
+num_friends = int(num_friends)
 neigh = NearestNeighbors(n_neighbors=num_friends)
 neigh.fit(ClassDataNums)
 
-
+SpeakText("Let's get started. Speak only after you hear the command Speak Now.")
 SpeakText("On a scale of 1-10, how interested are you in sports?")
 sports_interest_value = getMove()
 while not validate_answer(sports_interest_value):
@@ -103,3 +107,5 @@ SpeakText(
 )
 for i in friends_list:
     SpeakText(student_names[i])
+    print(student_names[i])
+SpeakText("Thank you for using the Friend Locator program, powered by KNN.")

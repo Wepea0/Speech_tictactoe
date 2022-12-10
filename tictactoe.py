@@ -10,8 +10,8 @@ BLANK = "_"
 X = "user"
 O = "computer"
 EMPTY_GRID = [[BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK]]
-computer = emoji.emojize(":collision:",  variant = "emoji_type")
-user = emoji.emojize(":alien:", variant = "emoji_type")
+computer = emoji.emojize(":collision:", variant="emoji_type")
+user = emoji.emojize(":alien:", variant="emoji_type")
 
 
 class TicTacToe:
@@ -267,7 +267,7 @@ def play_game():
                     "Squares are labelled 1 to 9. Say the square you would like to play in next"
                 )
                 try:
-                    ans = getMove()                                        
+                    ans = getMove()
                 except:
                     SpeakText("Please say a number between 1 and 9")
                     ans = getMove()
