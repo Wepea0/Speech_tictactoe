@@ -7,21 +7,23 @@ import emoji
 
 INF = sys.maxsize
 BLANK = "_"
-X = "X"
-O = "O"
+X = "user"
+O = "computer"
 EMPTY_GRID = [[BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK], [BLANK, BLANK, BLANK]]
+computer = emoji.emojize(":collision:",  variant = "emoji_type")
+user = emoji.emojize(":alien:", variant = "emoji_type")
 
 
 class TicTacToe:
     def __init__(self):
         self.init_state = copy.deepcopy(EMPTY_GRID)
-        self.player = "X"
+        self.player = "user"
 
     def terminal_test(self, state):
         if not (BLANK in state[0] or BLANK in state[1] or BLANK in state[2]):
             return True
         winner = self.winner(state)
-        return winner == X or winner == O
+        return winner == computer or winner == user
 
     def winner(self, state):
         for row in [0, 1, 2]:
@@ -240,7 +242,7 @@ def play_game():
             "You win!",
         ]
         lose_statements = [
-            "You lose:(, Sometimes a loss is the best thing that can happen. It teaches you what you should have done next time.",
+            "You lose:(, Sometimes a loss is the best thing that can happen. It teaches you what you should do next time.",
             "Oh no, you lose.",
             "Better luck next time buddy.",
             "Come back stronger next time.",
@@ -251,20 +253,21 @@ def play_game():
         username = getMove()
         welcomeMessage = "Nice to meet you " + username
         SpeakText(welcomeMessage)
-        player = "O"
+        # player = "O"
+        player = "user"
 
         SpeakText("Game is about to start now. You have the first move")
         print_grid("Current grid:", grid)
 
         while not game.terminal_test(grid):
-            if player == O:
+            if player == "user":
                 print("Current player is", username)
 
                 SpeakText(
                     "Squares are labelled 1 to 9. Say the square you would like to play in next"
                 )
                 try:
-                    ans = getMove()
+                    ans = getMove()                                        
                 except:
                     SpeakText("Please say a number between 1 and 9")
                     ans = getMove()
@@ -276,15 +279,15 @@ def play_game():
                 rowCol = moves[ans]
                 row, col = int(rowCol[0]), int(rowCol[1])
                 if grid[row][col] == BLANK:
-                    if player == X:
-                        grid[row][col] = emoji.emojize(":alien:", variant = "emoji_type")
-                    if player == O:
-                        grid[row][col] = emoji.emojize(":collision:",  variant = "emoji_type")
+                    if player == "user":
+                        grid[row][col] = user
+                    if player == "computer":
+                        grid[row][col] = computer
 
-                    if player == X:
-                        player = O
+                    if player == "user":
+                        player = "computer"
                     else:
-                        player = X
+                        player = "user"
                     print_grid("Current grid:", grid)
             else:
                 print("Current player is", player, "(Computer)")
@@ -292,23 +295,23 @@ def play_game():
                 SpeakText(f"Computer played in ({findMoveSquare(row, col, moves)})")
 
                 if grid[row][col] == BLANK:
-                    if player == X:
-                        grid[row][col] = emoji.emojize(":alien:",  variant = "emoji_type")
-                    if player == O:
-                        grid[row][col] = emoji.emojize(":collision:",  variant = "emoji_type")
+                    if player == "user":
+                        grid[row][col] = user
+                    if player == "computer":
+                        grid[row][col] = computer
                     # grid[row][col] = player
-                    if player == X:
-                        player = O
+                    if player == "user":
+                        player = "computer"
                     else:
-                        player = X
+                        player = "user"
                     print_grid("Current grid:", grid)
 
         winner = game.winner(grid)
 
-        if winner == X:
+        if winner == computer:
             statement = random.choice(lose_statements)
             SpeakText(statement)
-        elif winner == O:
+        elif winner == user:
             statement = random.choice(win_statements)
             SpeakText(statement)
         else:
@@ -334,5 +337,5 @@ def findMoveSquare(row, col, moveDict):
 
 
 if __name__ == "__main__":
-    # play_game()
+    play_game()
     print(emoji.emojize(" collistion :collision:"))

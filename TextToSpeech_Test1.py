@@ -29,7 +29,8 @@ def SpeakText(command):
     engine.runAndWait()
 
 
-
+'''This function initializes user audio input device and prompts the user to speak, 
+it then uses google speech recognition API to determine which words were spoken'''
 def getMove():
 
     # Exception handling to handle
