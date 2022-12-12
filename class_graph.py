@@ -44,4 +44,4 @@ plotly.offline.plot(
     {"data": [fig1], "layout": mylayout}, auto_open=True, filename="5D Plot.html"
 )
 
-# code obtained from: https://github.com/ostwalprasad/PythonMultiDimensionalPlots/blob/master/src/5D.py
+# some code obtained from: https://github.com/ostwalprasad/PythonMultiDimensionalPlots/blob/master/src/5D.py
